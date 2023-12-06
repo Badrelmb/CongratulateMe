@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333519180448",
+    "project_id": "congratulateme-d2e26",
+    "storage_bucket": "congratulateme-d2e26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333519180448:android:1d9e9a6f3564fa876defc5",
+        "android_client_info": {
+          "package_name": "com.example.congratulateme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9EON0p8e6KkcSDFs6dcjdgo9SLQfmpb8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
