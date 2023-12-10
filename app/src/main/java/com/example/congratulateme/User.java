@@ -5,12 +5,18 @@ public class User {
     public String email;
     public String id;
     public String password;
-    public String getPassword() {
-        return password;
-    }
+
+
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public String getId() {
+        return id;
+    }
+    public String getPassword() {
+        return password;
     }
 
     public User(String name, String email, String id, String password) {

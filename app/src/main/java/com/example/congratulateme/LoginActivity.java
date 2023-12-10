@@ -35,12 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonSignIn = findViewById(R.id.buttonSignIn);
 
-        // Initialize Firebase Database
-        FirebaseDatabase database = FirebaseDatabase.getInstance("https://congratulateme-d2e26-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
+// Initialize Firebase Database
         FirebaseApp.initializeApp(this);
-
-        usersRef = FirebaseDatabase.getInstance().getReference("users");
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://congratulateme-d2e26-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        usersRef = database.getReference("users");
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
-
                         if (user != null && user.getPassword().equals(password)) {
                             Intent intent = new Intent(LoginActivity.this, ChooseRoleActivity.class);
                             startActivity(intent);
@@ -69,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+
 
         buttonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

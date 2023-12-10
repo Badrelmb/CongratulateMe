@@ -1,18 +1,40 @@
 package com.example.congratulateme;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable {
+    private String id;
     private String eventName;
     private String hostName;
     private String category;
-    private String dateAndTime;
+    private String date;
+    private String time;
     private String address;
 
-    public Event(String eventName, String hostName, String category, String dateAndTime, String address) {
+    // Default constructor is required for Firebase
+    public Event() {
+    }
+
+    // Constructor with parameters
+    public Event(String id, String eventName, String hostName, String category, String date, String time, String address) {
+        this.id = id;
         this.eventName = eventName;
         this.hostName = hostName;
         this.category = category;
-        this.dateAndTime = dateAndTime;
+        this.date = date;
+        this.time = time;
         this.address = address;
+    }
+
+    // Getters
+
+    public String getId() {
+        return id;
+    }
+
+    // Setter for ID
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEventName() {
@@ -27,14 +49,19 @@ public class Event {
         return category;
     }
 
-    public String getDateAndTime() {
-        return dateAndTime;
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
     }
 
     public String getAddress() {
         return address;
     }
 
-    // Optionally, you can also include setters if needed
-    // ...
+
 }
+
+

@@ -52,7 +52,7 @@ public class SignInActivity extends AppCompatActivity {
                 User newUser = new User(name, email, id, password);
 
                 // Get a reference to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://congratulateme-d2e26-default-rtdb.asia-southeast1.firebasedatabase.app/");
                 DatabaseReference usersRef = database.getReference("users");
 
                 // Store the user in the database using their ID as the key

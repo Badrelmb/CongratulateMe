@@ -12,9 +12,17 @@ import java.util.List;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private List<Event> eventList;
+    private OnEventClickListener clickListener;
 
-    public EventAdapter(List<Event> eventList) {
+    // Define an interface for the click listener
+    public interface OnEventClickListener {
+        void onEventClick(Event event);
+    }
+
+    // Modify the constructor to accept the OnEventClickListener as a parameter
+    public EventAdapter(List<Event> eventList, OnEventClickListener clickListener) {
         this.eventList = eventList;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -28,10 +36,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Event event = eventList.get(position);
         holder.tvEventName.setText(event.getEventName());
-        holder.tvHostName.setText(event.getHostName());
-        holder.tvCategory.setText(event.getCategory());
-        holder.tvDateTime.setText(event.getDateAndTime());
-        // Set other properties...
+        holder.tvDate.setText(event.getDate());
+        holder.tvTime.setText(event.getTime());
+
+        // Set the click listener for the entire item view
+        holder.itemView.setOnClickListener(v -> {
+            if (clickListener != null) {
+                clickListener.onEventClick(event);
+            }
+        });
     }
 
     @Override
@@ -41,18 +54,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvEventName;
-        public TextView tvHostName;
-        public TextView tvCategory;
-        public TextView tvDateTime;
+        public TextView tvDate;
+        public TextView tvTime;
         // Other view holders...
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvEventName = itemView.findViewById(R.id.tvEventName);
-            tvHostName = itemView.findViewById(R.id.tvHostName);
-            tvCategory = itemView.findViewById(R.id.tvCategory);
-            tvDateTime = itemView.findViewById(R.id.tvDateTime);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvTime = itemView.findViewById(R.id.tvTime);
+            // Initialize other views here if needed
         }
     }
 }
-
