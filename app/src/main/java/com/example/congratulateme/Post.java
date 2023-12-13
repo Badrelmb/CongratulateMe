@@ -1,32 +1,34 @@
 package com.example.congratulateme;
 
 public class Post {
-    // Define the properties of a Post
-    private String text;
-    private String mediaUrl;
+    private String text; // This field can include text, image URLs, or video URLs.
+    private String mediaUrl; // Separate field for media if needed
     private String id;
-
     private String eventId;
-    private String content;
     private String authorId;
     private long timestamp;
 
-    // Empty constructor is required for Firebase to deserialize data
     public Post() {
+        // Empty constructor is required for Firebase to deserialize data
     }
 
-
-
-    // Add getters and setters for your properties
+    // Add getters and setters for the properties
     public String getText() {
         return text;
-    } // Getters and setters for each field
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public String getMediaUrl() {
         return mediaUrl;
     }
+
     public void setMediaUrl(String mediaUrl) {
         this.mediaUrl = mediaUrl;
     }
+
     public String getId() {
         return id;
     }
@@ -43,17 +45,10 @@ public class Post {
         this.eventId = eventId;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getAuthorId() {
         return authorId;
     }
+
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
@@ -66,15 +61,9 @@ public class Post {
         this.timestamp = timestamp;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    // Add a constructor if necessary
+    // If you decide to keep the text field as the main content holder,
+    // then the constructor should also reflect this.
     public Post(String text) {
         this.text = text;
     }
-
-
 }
-

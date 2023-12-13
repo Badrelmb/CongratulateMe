@@ -5,9 +5,14 @@ plugins {
     id("com.google.gms.google-services") version "4.4.0" apply false
 }
 buildscript {
-    // ...
+    repositories {
+           google()
+            mavenCentral()
+
+        }
     dependencies {
         // ...
-        classpath("com.google.gms:google-services:4.3.3")  // Add this line
+        classpath("com.google.gms:google-services:4.4.0")  // Add this line
     }
 }
+

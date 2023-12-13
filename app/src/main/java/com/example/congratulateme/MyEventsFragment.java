@@ -76,4 +76,12 @@ public class MyEventsFragment extends Fragment implements EventAdapter.OnEventCl
             }
         });
     }
+
+    public void updateEventList(ArrayList<Event> newEvents) {
+        // Assuming 'eventAdapter' is your RecyclerView adapter and 'eventList' is the data set it uses
+        eventList.clear();
+        eventList.addAll(newEvents);
+        eventAdapter.notifyDataSetChanged(); // Tell the adapter to update the RecyclerView
+    }
+
 }
