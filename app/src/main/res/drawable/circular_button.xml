@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#97959A"/> <!-- Use your desired button color -->
+    <!-- You can add a size attribute here if you want a fixed size for the drawable -->
+    <size
+        android:width="100dp"
+        android:height="100dp"/>
+    <!-- Add padding if necessary -->
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp"/>
+    <!-- Optionally add a stroke -->
+    <stroke
+        android:width="1dp"
+        android:color="#FFFFFF"/> <!-- Stroke color -->
+</shape>

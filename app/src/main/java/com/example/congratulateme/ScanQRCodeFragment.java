@@ -13,9 +13,20 @@ import androidx.fragment.app.Fragment;
 
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class ScanQRCodeFragment extends Fragment {
+    // Define an interface for callback
+    public interface OnQRCodeScannedListener {
+        void onQRCodeScanned(Event event);
+    }
 
+    private OnQRCodeScannedListener qrCodeScannedListener;
     private ActivityResultLauncher<ScanOptions> barcodeLauncher;
 
     @Override
@@ -26,11 +37,37 @@ public class ScanQRCodeFragment extends Fragment {
             if(result.getContents() == null) {
                 Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(getContext(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                // Handle the scanned QR code (e.g., look up event by ID)
+                String eventId = result.getContents();
+                fetchEventFromFirebase(eventId);
+            }
+        });
+    }private void fetchEventFromFirebase(String eventId) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("events"); // Replace "events" with your actual Firebase database path
+
+        databaseReference.child(eventId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Assuming Event class matches the structure in your database
+                    Event event = dataSnapshot.getValue(Event.class);
+                    // Notify the activity (if the listener is set)
+                    if (qrCodeScannedListener != null && event != null) {
+                        qrCodeScannedListener.onQRCodeScanned(event);
+                    }
+                } else {
+                    // Handle the case where the event does not exist
+                    Toast.makeText(getContext(), "QR code does not match any event", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle potential errors
+                Toast.makeText(getContext(), "Error fetching event data", Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     @Nullable
     @Override
@@ -56,5 +93,10 @@ public class ScanQRCodeFragment extends Fragment {
         options.setBeepEnabled(false); // Whether you want to be notified via beep
         options.setBarcodeImageEnabled(true); // Whether to save the barcode image
         barcodeLauncher.launch(options);
+    }
+
+    // Method to set the listener from the Activity
+    public void setOnQRCodeScannedListener(OnQRCodeScannedListener listener) {
+        this.qrCodeScannedListener = listener;
     }
 }
